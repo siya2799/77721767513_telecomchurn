@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE_NAME = "telecomchurn"
+        DOCKER_IMAGE_TAG = "tc" 
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/siya2799/77721767513_telecomchurn.git'
+            }
+        }
+        stage('Build and run Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t telecomchurn:tc ."
+                    sh 'docker run telecomchurn:tc'
+                }
+            }
+        }        
+    }
+}
